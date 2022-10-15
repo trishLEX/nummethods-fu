@@ -27,4 +27,22 @@ class TrapezeMethodTest {
             res
         )
     }
+
+    @Test
+    fun testRunge() {
+        val function: (Value) -> Value = { x -> 7.0 / (x * x + 1.0)}
+        val derivative: (Value) -> Value = { x -> -14.0 * x / (x * x + 1.0).pow(2)}
+        val measureError = 0.01
+        val start = Value(0.0, measureError)
+        val end = Value(5.0, measureError)
+
+        val res = Integration(function, start, end).trapeze(0.001, derivative)
+        Assertions.assertEquals(
+            MethodResult(
+                Value(9.613266283413711, 0.029748202966649234),
+                5.393244575936883E-4
+            ),
+            res
+        )
+    }
 }

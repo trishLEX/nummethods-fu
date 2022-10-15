@@ -16,6 +16,10 @@ class Integration(
     private val end: Value
 ) {
 
+    companion object {
+        private const val DEFAULT_N = 10
+    }
+
     /**
      * Посчитать определенный интеграл методом трапеций
      *
@@ -24,5 +28,22 @@ class Integration(
      */
     fun trapeze(n: Int, derivative: (Value) -> Value): MethodResult {
         return TrapezeMethod(function, derivative, start, end, n).evaluate()
+    }
+
+    /**
+     * Посчитать определенный интеграл методом трапеций с требуемой точностью,
+     * используя правило остановки счета по Рунге
+     *
+     * @param error      требуемая точность
+     * @param derivative функция производной
+     */
+    fun trapeze(error: Double, derivative: (Value) -> Value): MethodResult {
+        var n = DEFAULT_N
+        var res = TrapezeMethod(function, derivative, start, end, n).evaluate()
+        while (res.methodError > error) {
+            n *= 2
+            res = TrapezeMethod(function, derivative, start, end, n).evaluate()
+        }
+        return res
     }
 }
