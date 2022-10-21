@@ -3,7 +3,7 @@ package ru.fa.integration
 import ru.fa.Method
 import ru.fa.MethodResult
 import ru.fa.Value
-import ru.fa.abs
+import ru.fa.Value.Companion.abs
 import ru.fa.times
 
 class TrapezeMethod(

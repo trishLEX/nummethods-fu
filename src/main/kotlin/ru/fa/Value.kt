@@ -2,6 +2,20 @@ package ru.fa
 
 data class Value(val value: Double, val error: Double) {
 
+    companion object {
+        fun max(a: Value, b: Value): Value {
+            return if (a.value >= b.value) {
+                a
+            } else {
+                b
+            }
+        }
+
+        fun abs(value: Value): Value {
+            return Value(kotlin.math.abs(value.value), kotlin.math.abs(value.error))
+        }
+    }
+
     /**
      * Операция сложения неточных чисел
      */
@@ -101,8 +115,4 @@ operator fun Double.times(value: Value): Value {
 
 operator fun Int.times(value: Value): Value {
     return value * this
-}
-
-fun abs(value: Value): Value {
-    return Value(kotlin.math.abs(value.value), kotlin.math.abs(value.error))
 }
