@@ -10,6 +10,14 @@ data class Vector(val v: Array<Double>) {
         return v.size
     }
 
+    fun changeElements(i: Int, j: Int): Vector {
+        val res = copy()
+        val temp = res[i]
+        res[i] = res[j]
+        res[j] = temp
+        return res
+    }
+
     operator fun div(t: Double): Vector {
         val new = v.map { it / t }.toTypedArray()
         return Vector(new)

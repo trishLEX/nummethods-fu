@@ -10,12 +10,12 @@ class Iterations(
     private val derivative: (Value) -> Value,
     private val start: Value,
     private val end: Value,
-    private val accuracy: Double = 0.001
-) : Method {
+    private val accuracy: Double
+) : Method<Value> {
 
     private val f: (Value) -> Value = {x: Value -> function(x) + x}
 
-    override fun evaluate(): MethodResult {
+    override fun evaluate(): MethodResult<Value> {
         val maxDerivative = Value.max(derivative(start), derivative(end))
         if (abs(maxDerivative).value > 1) {
             throw IllegalArgumentException()

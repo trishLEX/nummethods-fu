@@ -12,13 +12,13 @@ class EquationsTest {
         }
 
         val derivative: (Value) -> Value = {
-                x -> x * 2 - 1.0
+                x -> x * 2 - 2.0
         }
 
         val start = Value(-3.0)
         val end = Value(0.9)
 
-        val res = Iterations(function, derivative, start, end).evaluate()
+        val res = Equation(function).iterations(derivative, start, end)
         println("iterations: $res")
     }
 
@@ -29,12 +29,12 @@ class EquationsTest {
         }
 
         val derivative: (Value) -> Value = {
-                x -> x * 2 - 1.0
+                x -> x * 2 - 2.0
         }
 
-        val start = Value(-5.0)
-        val end = Value(1.0)
-        val res = ImprovedIterations(function, derivative, start, end).evaluate()
+        val start = Value(-3.0)
+        val end = Value(0.9)
+        val res = Equation(function).improvedIterations(derivative, start, end)
         println("improved iterations: $res")
     }
 
@@ -45,11 +45,11 @@ class EquationsTest {
         }
 
         val derivative: (Value) -> Value = {
-                x -> x * 2 - 1.0
+                x -> x * 2 - 2.0
         }
 
         val start = Value(-3.0)
-        val res = NewtonRaphson(function, derivative, start).evaluate()
+        val res = Equation(function).newtonRaphson(derivative, start)
         println("newton-raphson: $res")
     }
 }

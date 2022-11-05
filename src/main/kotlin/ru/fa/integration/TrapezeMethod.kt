@@ -12,11 +12,11 @@ class TrapezeMethod(
     private val start: Value,
     private val end: Value,
     private val n: Int,
-) : Method {
+) : Method<Value> {
 
     private val h = abs((start - end) / n)
 
-    override fun evaluate(): MethodResult {
+    override fun evaluate(): MethodResult<Value> {
         var sum = Value(0.0, 0.0)
         for (i in 0 ..n) {
             val x = start + h * i

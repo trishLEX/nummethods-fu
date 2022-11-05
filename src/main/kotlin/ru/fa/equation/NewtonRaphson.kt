@@ -9,12 +9,12 @@ class NewtonRaphson(
     private val function: (Value) -> Value,
     private val derivative: (Value) -> Value,
     private val start: Value,
-    private val accuracy: Double = 0.001
-) : Method {
+    private val accuracy: Double
+) : Method<Value> {
 
     private val step: (Value) -> Value = {x: Value -> x - function(x) / derivative(x)}
 
-    override fun evaluate(): MethodResult {
+    override fun evaluate(): MethodResult<Value> {
         var start = start
         var new = step(start)
         var n = 1

@@ -26,7 +26,7 @@ class Integration(
      * @param n          кол-во разбиений площади под функцией
      * @param derivative функция производной
      */
-    fun trapeze(n: Int, derivative: (Value) -> Value): MethodResult {
+    fun trapeze(n: Int, derivative: (Value) -> Value): MethodResult<Value> {
         return TrapezeMethod(function, derivative, start, end, n).evaluate()
     }
 
@@ -37,7 +37,7 @@ class Integration(
      * @param error      требуемая точность
      * @param derivative функция производной
      */
-    fun trapeze(error: Double, derivative: (Value) -> Value): MethodResult {
+    fun trapeze(error: Double, derivative: (Value) -> Value): MethodResult<Value> {
         var n = DEFAULT_N
         var res = TrapezeMethod(function, derivative, start, end, n).evaluate()
         while (res.methodError > error) {
