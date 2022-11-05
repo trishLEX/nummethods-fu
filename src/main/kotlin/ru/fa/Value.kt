@@ -16,6 +16,8 @@ data class Value(val value: Double, val error: Double) {
         }
     }
 
+    constructor(value: Double) : this(value, 0.0)
+
     /**
      * Операция сложения неточных чисел
      */
@@ -111,6 +113,10 @@ operator fun Double.div(value: Value): Value {
 
 operator fun Double.times(value: Value): Value {
     return value * this
+}
+
+operator fun Double.minus(value: Value): Value {
+    return Value(this - value.value, value.error)
 }
 
 operator fun Int.times(value: Value): Value {

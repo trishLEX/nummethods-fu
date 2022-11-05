@@ -22,7 +22,8 @@ class TrapezeMethodTest {
         Assertions.assertEquals(
             MethodResult(
                 Value(9.611728568610765, 0.05506706507174948),
-                0.002157297830374753
+                0.002157297830374753,
+                n
             ),
             res
         )
@@ -40,7 +41,8 @@ class TrapezeMethodTest {
         Assertions.assertEquals(
             MethodResult(
                 Value(9.613266283413711, 0.029748202966649234),
-                5.393244575936883E-4
+                5.393244575936883E-4,
+                20
             ),
             res
         )

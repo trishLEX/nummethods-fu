@@ -28,7 +28,7 @@ class TrapezeMethod(
         }
         sum *= h / 2
 
-        return MethodResult(sum, methodError())
+        return MethodResult(sum, methodError(), n)
     }
 
     override fun methodError(): Double {
