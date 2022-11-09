@@ -1,6 +1,10 @@
 package ru.fa.systems
 
+import kotlin.math.sqrt
+
 data class Vector(val v: Array<Double>) {
+
+    constructor(n: Int): this(Array(n) { 0.0 })
 
     operator fun get(i: Int): Double {
         return v[i]
@@ -38,5 +42,25 @@ data class Vector(val v: Array<Double>) {
 
     operator fun set(i: Int, value: Double) {
         v[i] = value
+    }
+
+    operator fun times(d: Double): Vector {
+        return Vector(v.map { it * d }.toTypedArray())
+    }
+
+    operator fun minus(vec: Vector): Vector {
+        val res = Vector(vec.size())
+        for (i in 0 until size()) {
+            res[i] = this[i] - vec[i]
+        }
+        return res
+    }
+
+    fun modulus(): Double {
+        return sqrt(v.map { it * it }.sum())
+    }
+
+    fun max(): Double {
+        return v.max()
     }
 }
