@@ -2,7 +2,7 @@ package ru.fa.systems
 
 data class Matrix(val m: Array<Vector>) {
 
-    constructor(n: Int): this(Array(n) { Vector(it) })
+    constructor(n: Int): this(Array(n) { Vector(n) })
 
     /**
      * Возвращает i-ую строку матрицы

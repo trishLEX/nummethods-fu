@@ -19,11 +19,11 @@ class NonLinearNewtonRaphson(
         var start = start
         var new = step(start)
         var n = 1
-        while ((new - start).max() > accuracy) {
-            start = step(new)
+        while ((new - start).abs().max() > accuracy) {
+            start = new
             new = step(start)
             n++
         }
-        return MethodResult((new - start) / 2.0, n)
+        return MethodResult(new, n)
     }
 }

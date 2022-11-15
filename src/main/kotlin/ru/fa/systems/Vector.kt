@@ -4,6 +4,8 @@ import kotlin.math.sqrt
 
 data class Vector(val v: Array<Double>) {
 
+    constructor(vararg v: Double) : this(v.toTypedArray())
+
     constructor(n: Int): this(Array(n) { 0.0 })
 
     operator fun get(i: Int): Double {
@@ -62,5 +64,9 @@ data class Vector(val v: Array<Double>) {
 
     fun max(): Double {
         return v.max()
+    }
+
+    fun abs(): Vector {
+        return Vector(v.map { kotlin.math.abs(it) }.toTypedArray())
     }
 }
