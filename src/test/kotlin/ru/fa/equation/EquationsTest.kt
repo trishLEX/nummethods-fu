@@ -1,6 +1,8 @@
 package ru.fa.equation
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import ru.fa.MethodResult
 import ru.fa.Value
 
 class EquationsTest {
@@ -19,7 +21,10 @@ class EquationsTest {
         val end = Value(0.9)
 
         val res = Equation(function).iterations(derivative, start, end)
-        println("iterations: $res")
+        Assertions.assertEquals(
+            MethodResult(Value(-0.009999037108959849), 2462),
+            res
+        )
     }
 
     @Test
@@ -35,7 +40,10 @@ class EquationsTest {
         val start = Value(-3.0)
         val end = Value(0.9)
         val res = Equation(function).improvedIterations(derivative, start, end)
-        println("improved iterations: $res")
+        Assertions.assertEquals(
+            MethodResult(Value(0.0022154507153729287), 4),
+            res
+        )
     }
 
     @Test
@@ -50,6 +58,9 @@ class EquationsTest {
 
         val start = Value(-3.0)
         val res = Equation(function).newtonRaphson(derivative, start)
-        println("newton-raphson: $res")
+        Assertions.assertEquals(
+            MethodResult(Value(2.8211101319785935E-4), 3),
+            res
+        )
     }
 }
