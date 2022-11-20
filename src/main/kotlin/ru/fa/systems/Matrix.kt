@@ -18,10 +18,16 @@ data class Matrix(val m: Array<Vector>) {
         return m[0].size()
     }
 
+    /**
+     * Получить i-тую строчку в матрице
+     */
     fun row(i: Int): Vector {
         return get(i)
     }
 
+    /**
+     * Получить i-ый столбец в матрице
+     */
     fun column(i: Int): Vector {
         val res = Vector(Array(size()) { 0.0 })
         for (row in 0 .. size()) {
@@ -132,4 +138,7 @@ data class Matrix(val m: Array<Vector>) {
     }
 }
 
+/**
+ * Сигнум функция
+ */
 fun changeSign(i: Int) = if(i % 2 == 0) 1 else -1

@@ -1,10 +1,10 @@
 package ru.fa.equation.differenttial
 
 import org.junit.jupiter.api.Test
-import ru.fa.Value
 import ru.fa.equation.differential.Euler
 import ru.fa.equation.differential.Point
 import ru.fa.equation.differential.RungeKutta
+import ru.fa.model.Value
 
 class EulerTest {
 

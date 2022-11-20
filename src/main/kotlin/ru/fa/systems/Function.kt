@@ -18,8 +18,4 @@ class Function(
     operator fun minus(function: Function): Function {
         return Function { f(it) - function(it) }
     }
-
-    operator fun times(function: Function): Function {
-        return Function { f(it) * function(it) }
-    }
 }

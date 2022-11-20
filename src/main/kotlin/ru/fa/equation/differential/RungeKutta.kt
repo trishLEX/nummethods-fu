@@ -1,8 +1,8 @@
 package ru.fa.equation.differential
 
-import ru.fa.Method
-import ru.fa.MethodResult
-import ru.fa.Value
+import ru.fa.model.Method
+import ru.fa.model.MethodResult
+import ru.fa.model.Value
 
 class RungeKutta(
     private val derivative: (Point) -> Value,

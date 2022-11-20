@@ -1,6 +1,6 @@
 package ru.fa.equation.differential
 
-import ru.fa.Value
+import ru.fa.model.Value
 
 data class Point(val x: Value, val y: Value) {
 

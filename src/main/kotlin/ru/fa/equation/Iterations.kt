@@ -1,9 +1,9 @@
 package ru.fa.equation
 
-import ru.fa.Method
-import ru.fa.MethodResult
-import ru.fa.Value
-import ru.fa.Value.Companion.abs
+import ru.fa.model.Method
+import ru.fa.model.MethodResult
+import ru.fa.model.Value
+import ru.fa.model.Value.Companion.abs
 
 class Iterations(
     private val function: (Value) -> Value,
@@ -13,7 +13,7 @@ class Iterations(
     private val accuracy: Double
 ) : Method<Value> {
 
-    private val f: (Value) -> Value = {x: Value -> function(x) + x}
+    private val f: (Value) -> Value = { x: Value -> function(x) + x}
 
     override fun evaluate(): MethodResult<Value> {
         val maxDerivative = Value.max(derivative(start), derivative(end))

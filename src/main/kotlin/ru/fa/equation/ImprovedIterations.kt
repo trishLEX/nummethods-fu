@@ -1,11 +1,11 @@
 package ru.fa.equation
 
-import ru.fa.Method
-import ru.fa.MethodResult
-import ru.fa.Value
-import ru.fa.Value.Companion.abs
-import ru.fa.div
-import ru.fa.minus
+import ru.fa.model.Method
+import ru.fa.model.MethodResult
+import ru.fa.model.Value
+import ru.fa.model.Value.Companion.abs
+import ru.fa.model.div
+import ru.fa.model.minus
 
 class ImprovedIterations(
     private val function: (Value) -> Value,
@@ -18,7 +18,7 @@ class ImprovedIterations(
     private val alpha: (Value, Value) -> Value = {
             left: Value, right: Value -> 1.0 / (1.0 - (function(right) - function(left)) / (right - left))
     }
-    private val f: (Value) -> Value = {x: Value -> function(x) + x }
+    private val f: (Value) -> Value = { x: Value -> function(x) + x }
     private val step: (Value, Value) -> Value = {
             left: Value, right: Value -> right + alpha(left, right) * (f(right) - right)
     }

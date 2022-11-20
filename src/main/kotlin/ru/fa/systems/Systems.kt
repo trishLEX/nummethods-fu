@@ -1,6 +1,7 @@
 package ru.fa.systems
 
-import ru.fa.MethodResult
+import ru.fa.model.MethodResult
+import ru.fa.model.ValueNew
 
 /**
  * Реализация решения СЛАУ
@@ -9,14 +10,14 @@ import ru.fa.MethodResult
  * @param vector свободный член СЛАУ
  */
 class Systems(
-    private val matrix: Matrix,
-    private val vector: Vector
+    private val matrix: ru.fa.model.Matrix<ValueNew>,
+    private val vector: ru.fa.model.Vector<ValueNew>
 ) {
 
     /**
      * Поиск решения СЛАУ методом Гаусса
      */
-    fun gauss(): MethodResult<Vector> {
+    fun gauss(): MethodResult<ru.fa.model.Vector<ValueNew>> {
         return Gauss(matrix, vector).evaluate()
     }
 }

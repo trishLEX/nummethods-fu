@@ -1,7 +1,7 @@
 package ru.fa.systems.nonlinear
 
-import ru.fa.Method
-import ru.fa.MethodResult
+import ru.fa.model.Method
+import ru.fa.model.MethodResult
 import ru.fa.systems.FunctionMatrix
 import ru.fa.systems.FunctionVector
 import ru.fa.systems.Vector

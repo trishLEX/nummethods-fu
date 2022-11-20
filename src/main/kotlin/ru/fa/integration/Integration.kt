@@ -1,7 +1,7 @@
 package ru.fa.integration
 
-import ru.fa.MethodResult
-import ru.fa.Value
+import ru.fa.model.MethodResult
+import ru.fa.model.ValueNew
 
 /**
  * Реализация интегрирования
@@ -11,9 +11,9 @@ import ru.fa.Value
  * @param end      конец определенного интеграла
  */
 class Integration(
-    private val function: (Value) -> Value,
-    private val start: Value,
-    private val end: Value
+    private val function: (ValueNew) -> ValueNew,
+    private val start: ValueNew,
+    private val end: ValueNew
 ) {
 
     companion object {
@@ -26,7 +26,7 @@ class Integration(
      * @param n          кол-во разбиений площади под функцией
      * @param derivative функция производной
      */
-    fun trapeze(n: Int, derivative: (Value) -> Value): MethodResult<Value> {
+    fun trapeze(n: Int, derivative: (ValueNew) -> ValueNew): MethodResult<ValueNew> {
         return TrapezeMethod(function, derivative, start, end, n).evaluate()
     }
 
@@ -37,7 +37,7 @@ class Integration(
      * @param error      требуемая точность
      * @param derivative функция производной
      */
-    fun trapeze(error: Double, derivative: (Value) -> Value): MethodResult<Value> {
+    fun trapeze(error: Double, derivative: (ValueNew) -> ValueNew): MethodResult<ValueNew> {
         var n = DEFAULT_N
         var res = TrapezeMethod(function, derivative, start, end, n).evaluate()
         while (res.methodError > error) {

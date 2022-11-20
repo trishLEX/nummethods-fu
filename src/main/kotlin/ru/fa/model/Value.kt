@@ -1,4 +1,4 @@
-package ru.fa
+package ru.fa.model
 
 data class Value(val value: Double, val error: Double) {
 

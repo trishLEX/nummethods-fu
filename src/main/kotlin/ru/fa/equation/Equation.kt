@@ -1,7 +1,7 @@
 package ru.fa.equation
 
-import ru.fa.MethodResult
-import ru.fa.Value
+import ru.fa.model.MethodResult
+import ru.fa.model.Value
 
 /**
  * Реализация решения уравнения

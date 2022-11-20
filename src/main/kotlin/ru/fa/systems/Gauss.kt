@@ -1,14 +1,16 @@
 package ru.fa.systems
 
-import ru.fa.Method
-import ru.fa.MethodResult
+import ru.fa.model.Method
+import ru.fa.model.MethodResult
+import ru.fa.model.NumericType
+import ru.fa.model.ValueNew
 
 class Gauss(
-    private val matrix: Matrix,
-    private val vector: Vector
-) : Method<Vector> {
+    private val matrix: ru.fa.model.Matrix<ValueNew>,
+    private val vector: ru.fa.model.Vector<ValueNew>
+) : Method<ru.fa.model.Vector<ValueNew>> {
 
-    override fun evaluate(): MethodResult<Vector> {
+    override fun evaluate(): MethodResult<ru.fa.model.Vector<ValueNew>> {
         if (matrix.size() != vector.size()) {
             throw IllegalArgumentException("Different sizes of matrix and vector")
         }
@@ -24,15 +26,15 @@ class Gauss(
             val bk = b.changeElements(k, mainRow)
 
             for (i in k + 1 until  matrix.size()) {
-                val mi = a[i][k] / a[k][k]
-                val bi = b[i] - mi * b[k]
+                val mi = ak[i][k] / ak[k][k]
+                val bi = bk[i] - mi * bk[k]
 
-                val ai = Array(a.size()) { 0.0 }
+                val ai = ru.fa.model.Vector.zero(a.size(), NumericType.VECTOR_VALUE)
                 for (j in k until matrix.size()) {
-                    val aij = a[i][j] - mi * a[k][j]
+                    val aij = ak[i][j] - mi * ak[k][j]
                     ai[j] = aij
                 }
-                ak[i] = Vector(ai)
+                ak[i] = ai
                 bk[i] = bi
             }
             a = ak
@@ -40,7 +42,7 @@ class Gauss(
         }
 
         // обратный ход
-        val x = Vector(Array(a.size()) { 0.0 })
+        val x = ru.fa.model.Vector.zero(a.size(), NumericType.VECTOR_VALUE)
         x[a.size() - 1] = b[b.size() - 1] / a[b.size() - 1][b.size() - 1]
         for (n in b.size() - 2 downTo 0) {
             var xn = b[n]
@@ -52,7 +54,7 @@ class Gauss(
         return MethodResult(x, matrix.size())
     }
 
-    private fun getMainRow(a: Matrix, k: Int): Int {
+    private fun getMainRow(a: ru.fa.model.Matrix<ValueNew>, k: Int): Int {
         var maxElement = a[k][k]
         var maxRow = k
         for (i in k + 1 until a.size()) {

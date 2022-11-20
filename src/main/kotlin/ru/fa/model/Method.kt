@@ -1,4 +1,4 @@
-package ru.fa
+package ru.fa.model
 
 interface Method<T> {
     fun evaluate(): MethodResult<T>

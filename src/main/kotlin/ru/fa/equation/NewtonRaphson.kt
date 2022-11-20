@@ -1,9 +1,9 @@
 package ru.fa.equation
 
-import ru.fa.Method
-import ru.fa.MethodResult
-import ru.fa.Value
-import ru.fa.Value.Companion.abs
+import ru.fa.model.Method
+import ru.fa.model.MethodResult
+import ru.fa.model.Value
+import ru.fa.model.Value.Companion.abs
 
 class NewtonRaphson(
     private val function: (Value) -> Value,
@@ -12,7 +12,7 @@ class NewtonRaphson(
     private val accuracy: Double
 ) : Method<Value> {
 
-    private val step: (Value) -> Value = {x: Value -> x - function(x) / derivative(x)}
+    private val step: (Value) -> Value = { x: Value -> x - function(x) / derivative(x)}
 
     override fun evaluate(): MethodResult<Value> {
         var start = start

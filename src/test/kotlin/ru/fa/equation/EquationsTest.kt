@@ -2,8 +2,8 @@ package ru.fa.equation
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import ru.fa.MethodResult
-import ru.fa.Value
+import ru.fa.model.MethodResult
+import ru.fa.model.Value
 
 class EquationsTest {
 
