@@ -1,8 +1,11 @@
 package ru.fa.model
 
-data class Value(val value: Double, val error: Double) {
+data class Value(val value: Double, val error: Double) : Numeric<Value>(NumericType.VALUE) {
 
     companion object {
+        val ONE = Value(1.0)
+        val ZERO = Value(0.0)
+
         fun max(a: Value, b: Value): Value {
             return if (a.value >= b.value) {
                 a
@@ -16,109 +19,125 @@ data class Value(val value: Double, val error: Double) {
         }
     }
 
-    constructor(value: Double) : this(value, 0.0)
+    constructor(value: Double): this(value, 0.0)
 
-    /**
-     * Операция сложения неточных чисел
-     */
-    operator fun plus(increment: Value): Value {
-        return Value(
-            value + increment.value,
-            error + increment.error
-        )
+    override fun times(d: Double): Value {
+        return Value(value * d, error)
     }
 
-    /**
-     * Операция вычетания неточных чисел
-     */
-    operator fun minus(decrement: Value): Value {
-        return Value(
-            value - decrement.value,
-            error - decrement.error
-        )
-    }
-
-    /**
-     * Операция умножения неточных чисел
-     */
-    operator fun times(mul: Value): Value {
+    override fun times(n: Value): Value {
         val e1 = if (value == 0.0) 1.0 else error / value
-        val e2 = if (mul.value == 0.0) 1.0 else mul.error / mul.value
+        val e2 = if (n.value == 0.0) 1.0 else n.error / n.value
         return Value(
-            value * mul.value,
+            value * n.value,
             e1 + e2
         )
     }
 
-    /**
-     * Операция деления неточных чисел
-     */
-    operator fun div(div: Value): Value {
+    override fun div(d: Double): Value {
+        return Value(value / d, error)
+    }
+
+    override fun div(n: Value): Value {
         val e1 = if (value == 0.0) 1.0 else error / value
-        val e2 = if (div.value == 0.0) 1.0 else div.error / div.value
+        val e2 = if (n.value == 0.0) 1.0 else n.error / n.value
         return Value(
-            value / div.value,
+            value / n.value,
             e1 - e2
         )
     }
 
-    operator fun times(i: Int): Value {
-        return Value(value * i, error)
+    override fun plus(d: Double): Value {
+        return Value(value + d, error)
     }
 
-    operator fun times(d: Double): Value {
-        return Value(value * d, error)
+    override fun plus(n: Value): Value {
+        return Value(
+            value + n.value,
+            error + n.error
+        )
     }
 
-    operator fun div(div: Double): Value {
-        return Value(value / div, error)
-    }
-
-    operator fun div(div: Int): Value {
-        return Value(value / div, error)
-    }
-
-    operator fun plus(i: Double): Value {
-        return Value(value + i, error)
-    }
-
-    operator fun minus(d: Double): Value {
+    override fun minus(d: Double): Value {
         return Value(value - d, error)
     }
 
-    fun pow(d: Int): Value {
-        if (d < 0) {
-            throw IllegalArgumentException()
-        } else if (d == 0) {
-            return Value(1.0, error)
-        } else if (d == 1) {
-            return Value(value, error)
-        }
-
-        var res = this
-        for (i in 1 until d) {
-            res *= res
-        }
-        return res
+    override fun minus(n: Value): Value {
+        return Value(
+            value - n.value,
+            error - n.error
+        )
     }
 
-    operator fun unaryMinus(): Value {
+    override fun unaryMinus(): Value {
         return Value(-value, error)
     }
+
+    override fun abs(): Value {
+        return Companion.abs(this)
+    }
+
+    override fun one(): Value {
+        return ONE
+    }
+
+    override fun zero(): Value {
+        return ZERO
+    }
+
+    override fun self(): Value {
+        return this
+    }
+
+    override fun compareTo(other: Value): Int {
+        return this.value.compareTo(other.value)
+    }
+
+    override fun copy(): Value {
+        return Value(value, error)
+    }
+
+    override fun <T : Numeric<T>> Double.div(t: T): T {
+        return Value(1 / value, error) as T
+    }
+
+    override fun toString(): String {
+        return "ValueNew(value=$value, error=$error)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Value
+
+        if (value != other.value) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return value.hashCode()
+    }
+
 }
 
-operator fun Double.div(value: Value): Value {
-    return Value(this / value.value, value.error)
+operator fun Int.times(v: Value): Value {
+   return this.toDouble() * v
 }
 
-operator fun Double.times(value: Value): Value {
-    return value * this
+operator fun Double.div(n: Value): Value {
+    return Value(this / n.value, n.error)
 }
 
-operator fun Double.minus(value: Value): Value {
-    return Value(this - value.value, value.error)
+operator fun Double.times(n: Value): Value {
+    return Value(this * n.value, n.error)
 }
 
-operator fun Int.times(value: Value): Value {
-    return value * this
+operator fun Double.minus(n: Value): Value {
+    return Value(this - n.value, n.error)
+}
+
+operator fun Double.plus(n: Value): Value {
+    return Value(this + n.value, n.error)
 }

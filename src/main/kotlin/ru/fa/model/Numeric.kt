@@ -85,9 +85,13 @@ abstract class Numeric<T: Numeric<T>>(val numericType: NumericType<T>) : Compara
 class NumericType<T: Numeric<T>>(val clazz: Class<T>) {
 
     companion object {
-        val VALUE = NumericType(ValueNew::class.java)
-        val FUNCTION_OF_VALUE = NumericType(Function::class.java as Class<Function<ValueNew>>)
-        val VECTOR_VALUE = NumericType(Vector::class.java as Class<Vector<ValueNew>>)
-        val MATRIX_VALUE = NumericType(Matrix::class.java as Class<Matrix<ValueNew>>)
+        val VALUE = NumericType(Value::class.java)
+        val POINT = NumericType(Point::class.java)
+        val FUNCTION_VALUE = NumericType(Function::class.java as Class<Function<Value>>)
+        val FUNCTION_VECTOR = NumericType(Function::class.java as Class<Function<Vector<Value>>>)
+        val VECTOR_VALUE = NumericType(Vector::class.java as Class<Vector<Value>>)
+        val VECTOR_FUNCTION_VECTOR = NumericType(Vector::class.java as Class<Vector<Function<Vector<Value>>>>)
+        val MATRIX_VALUE = NumericType(Matrix::class.java as Class<Matrix<Value>>)
+        val MATRIX_FUNCTION_VECTOR = NumericType(Matrix::class.java as Class<Matrix<Function<Vector<Value>>>>)
     }
 }

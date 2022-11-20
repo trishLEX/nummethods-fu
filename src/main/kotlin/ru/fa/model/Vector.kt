@@ -3,24 +3,28 @@ package ru.fa.model
 class Vector<T: Numeric<T>>(val v: Array<T>, numericType: NumericType<Vector<T>>): Numeric<Vector<T>>(numericType) {
 
     companion object {
-        fun createVector(vararg v: Double): Vector<ValueNew> {
-            return Vector(v.map { ValueNew(it) }.toTypedArray(), NumericType.VECTOR_VALUE)
+        fun createVector(vararg v: Double): Vector<Value> {
+            return Vector(v.map { Value(it) }.toTypedArray(), NumericType.VECTOR_VALUE)
         }
 
-        fun createVector(n: Int): Vector<ValueNew> {
-            return Vector(Array(n) {ValueNew.ZERO}, NumericType.VECTOR_VALUE)
+        fun createVector(vararg v: Function<Vector<Value>>): Vector<Function<Vector<Value>>> {
+            return Vector(v.toList().toTypedArray(), NumericType.VECTOR_FUNCTION_VECTOR)
+        }
+
+        fun createVector(n: Int): Vector<Value> {
+            return Vector(Array(n) {Value.ZERO}, NumericType.VECTOR_VALUE)
         }
 
         fun <T: Numeric<T>> zero(n: Int, numericType: NumericType<Vector<T>>): Vector<T> {
             return when (numericType) {
-                NumericType.VECTOR_VALUE -> Vector(Array(n) {ValueNew.ZERO}, numericType) as Vector<T>
+                NumericType.VECTOR_VALUE -> Vector(Array(n) {Value.ZERO}, numericType) as Vector<T>
                 else -> throw UnsupportedOperationException()
             }
         }
 
         fun <T: Numeric<T>> one(n: Int, numericType: NumericType<Vector<T>>): Vector<T> {
             return when (numericType) {
-                NumericType.VECTOR_VALUE -> Vector(Array(n) {ValueNew.ONE}, numericType) as Vector<T>
+                NumericType.VECTOR_VALUE -> Vector(Array(n) {Value.ONE}, numericType) as Vector<T>
                 else -> throw UnsupportedOperationException()
             }
         }
@@ -173,7 +177,7 @@ class Vector<T: Numeric<T>>(val v: Array<T>, numericType: NumericType<Vector<T>>
     @Suppress("UNCHECKED_CAST")
     override fun one(): Vector<T> {
         return when (numericType) {
-            NumericType.VECTOR_VALUE -> Vector(Array(size()) {ValueNew.ONE}, numericType) as Vector<T>
+            NumericType.VECTOR_VALUE -> Vector(Array(size()) {Value.ONE}, numericType) as Vector<T>
             else -> throw UnsupportedOperationException()
         }
     }
@@ -181,7 +185,7 @@ class Vector<T: Numeric<T>>(val v: Array<T>, numericType: NumericType<Vector<T>>
     @Suppress("UNCHECKED_CAST")
     override fun zero(): Vector<T> {
         return when (numericType) {
-            NumericType.VECTOR_VALUE -> Vector(Array(size()) {ValueNew.ZERO}, numericType) as Vector<T>
+            NumericType.VECTOR_VALUE -> Vector(Array(size()) {Value.ZERO}, numericType) as Vector<T>
             else -> throw UnsupportedOperationException()
         }
     }

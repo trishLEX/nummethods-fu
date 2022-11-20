@@ -2,17 +2,21 @@ package ru.fa.model
 
 class Function<T: Numeric<T>>(
     numericType: NumericType<Function<T>>,
-    val f: (T) -> ValueNew,
+    val f: (T) -> Value,
 ) : Numeric<Function<T>>(numericType) {
 
     companion object {
 
-        fun createValueFunction(f: (ValueNew) -> ValueNew): Function<ValueNew> {
-            return Function(NumericType.FUNCTION_OF_VALUE, f)
+        fun createFunction(f: (Value) -> Value): Function<Value> {
+            return Function(NumericType.FUNCTION_VALUE, f)
+        }
+
+        fun createVectorFunction(f: (Vector<Value>) -> Value): Function<Vector<Value>> {
+            return Function(NumericType.FUNCTION_VECTOR, f)
         }
     }
 
-    operator fun invoke(value: T): ValueNew {
+    operator fun invoke(value: T): Value {
         return f(value)
     }
 
@@ -63,7 +67,7 @@ class Function<T: Numeric<T>>(
     @Suppress("UNCHECKED_CAST")
     override fun one(): Function<T> {
         return when (numericType) {
-            NumericType.FUNCTION_OF_VALUE -> createValueFunction { ValueNew(1.0) } as Function<T>
+            NumericType.FUNCTION_VALUE -> createFunction { Value(1.0) } as Function<T>
             else -> throw UnsupportedOperationException()
         }
     }
@@ -71,7 +75,7 @@ class Function<T: Numeric<T>>(
     @Suppress("UNCHECKED_CAST")
     override fun zero(): Function<T> {
         return when (numericType) {
-            NumericType.FUNCTION_OF_VALUE -> createValueFunction { ValueNew(0.0) } as Function<T>
+            NumericType.FUNCTION_VALUE -> createFunction { Value(0.0) } as Function<T>
             else -> throw UnsupportedOperationException()
         }
     }

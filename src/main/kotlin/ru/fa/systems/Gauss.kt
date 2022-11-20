@@ -3,14 +3,14 @@ package ru.fa.systems
 import ru.fa.model.Method
 import ru.fa.model.MethodResult
 import ru.fa.model.NumericType
-import ru.fa.model.ValueNew
+import ru.fa.model.Value
 
 class Gauss(
-    private val matrix: ru.fa.model.Matrix<ValueNew>,
-    private val vector: ru.fa.model.Vector<ValueNew>
-) : Method<ru.fa.model.Vector<ValueNew>> {
+    private val matrix: ru.fa.model.Matrix<Value>,
+    private val vector: ru.fa.model.Vector<Value>
+) : Method<ru.fa.model.Vector<Value>> {
 
-    override fun evaluate(): MethodResult<ru.fa.model.Vector<ValueNew>> {
+    override fun evaluate(): MethodResult<ru.fa.model.Vector<Value>> {
         if (matrix.size() != vector.size()) {
             throw IllegalArgumentException("Different sizes of matrix and vector")
         }
@@ -54,7 +54,7 @@ class Gauss(
         return MethodResult(x, matrix.size())
     }
 
-    private fun getMainRow(a: ru.fa.model.Matrix<ValueNew>, k: Int): Int {
+    private fun getMainRow(a: ru.fa.model.Matrix<Value>, k: Int): Int {
         var maxElement = a[k][k]
         var maxRow = k
         for (i in k + 1 until a.size()) {

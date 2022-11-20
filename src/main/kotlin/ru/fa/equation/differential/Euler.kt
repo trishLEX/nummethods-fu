@@ -2,6 +2,7 @@ package ru.fa.equation.differential
 
 import ru.fa.model.Method
 import ru.fa.model.MethodResult
+import ru.fa.model.Point
 import ru.fa.model.Value
 
 class Euler(

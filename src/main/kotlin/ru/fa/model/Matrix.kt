@@ -1,15 +1,27 @@
 package ru.fa.model
 
-import ru.fa.systems.changeSign
-
 class Matrix<T: Numeric<T>>(
     val m: Array<Vector<T>>,
     numericType: NumericType<Matrix<T>>
 ): Numeric<Matrix<T>>(numericType) {
 
     companion object {
-        fun createMatrix(n: Int): Matrix<ValueNew> {
+        fun createMatrix(n: Int): Matrix<Value> {
             return Matrix(Array(n) { Vector.createVector(n)}, NumericType.MATRIX_VALUE)
+        }
+
+        fun createMatrix(vararg v: Vector<Function<Vector<Value>>>): Matrix<Function<Vector<Value>>> {
+            return Matrix(
+                v.toList().toTypedArray(),
+                NumericType.MATRIX_FUNCTION_VECTOR
+            )
+        }
+
+        fun createValueMatrix(vararg v: Vector<Value>): Matrix<Value> {
+            return Matrix(
+                v.toList().toTypedArray(),
+                NumericType.MATRIX_VALUE
+            )
         }
 
         @Suppress("UNCHECKED_CAST")
@@ -66,7 +78,7 @@ class Matrix<T: Numeric<T>>(
      */
     @Suppress("UNCHECKED_CAST")
     fun column(i: Int): Vector<T> {
-        val res = Vector(arrayOfNulls<Any?>(size()) as Array<T>, getVectorType(numericType))
+        val res = Vector.zero(size(), getVectorType(numericType))
         for (row in 0 .. size()) {
             res[row] = m[row][i]
         }
@@ -94,7 +106,7 @@ class Matrix<T: Numeric<T>>(
 
     @Suppress("UNCHECKED_CAST")
     operator fun times(vec: Vector<T>): Vector<T> {
-        val res = Vector(arrayOfNulls<Any?>(size()) as Array<T>, getVectorType(numericType))
+        val res = Vector.zero(size(), getVectorType(numericType))
         for (i in 0 until size()) {
             val row = m[i]
             var resRow = row[0].zero()
@@ -252,8 +264,12 @@ class Matrix<T: Numeric<T>>(
         TODO("Not yet implemented")
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : Numeric<T>> Double.div(t: T): T {
-        TODO("Not yet implemented")
+        if (t is Value) {
+            return Value(this / t.value, t.error) as T
+        }
+        throw UnsupportedOperationException()
     }
 
     override fun equals(other: Any?): Boolean {
@@ -275,5 +291,9 @@ class Matrix<T: Numeric<T>>(
         return "Matrix(m=${m.contentToString()})"
     }
 
-
 }
+
+/**
+ * Сигнум функция
+ */
+fun changeSign(i: Int) = if(i % 2 == 0) 1 else -1
