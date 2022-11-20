@@ -54,30 +54,6 @@ abstract class Numeric<T: Numeric<T>>(val numericType: NumericType<T>) : Compara
 
     abstract fun copy(): T
 
-//    operator fun Double.div(n: T): T
-//
-//    operator fun Double.times(n: T): T
-//
-//    operator fun Double.minus(n: T): T
-//
-//    operator fun Double.plus(n: T): T
-//
-//    operator fun Int.div(n: T): T {
-//        return this.toDouble() / n
-//    }
-//
-//    operator fun Int.times(n: T): T {
-//        return this.toDouble() * n
-//    }
-//
-//    operator fun Int.minus(n: T): T {
-//        return this.toDouble() - n
-//    }
-//
-//    operator fun Int.plus(n: T): T {
-//        return this.toDouble() + n
-//    }
-
     abstract operator fun <T: Numeric<T>> Double.div(t: T): T
 }
 
