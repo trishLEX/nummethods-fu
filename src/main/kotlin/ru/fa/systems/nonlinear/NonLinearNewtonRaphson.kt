@@ -18,9 +18,8 @@ class NonLinearNewtonRaphson(
     private val step: (Vector<Value>) -> Vector<Value> = { x: Vector<Value> -> x - jacobian(x).inverse() * function(x)}
 
     private fun jacobian(x: Vector<Value>): Matrix<Value> {
-        return Matrix(
-            jacobian.m.map { Vector(it.v.map { it(x) }.toTypedArray(), NumericType.VECTOR_VALUE) }.toTypedArray(),
-            NumericType.MATRIX_VALUE
+        return Matrix.createValueMatrix(
+            jacobian.m.map { Vector.createVector(it.v.map { it(x)}) }
         )
     }
 

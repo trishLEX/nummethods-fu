@@ -1,6 +1,6 @@
 package ru.fa.model
 
-class Function<T: Numeric<T>>(
+class Function<T: Numeric<T>> private constructor(
     numericType: NumericType<Function<T>>,
     val f: (T) -> Value,
 ) : Numeric<Function<T>>(numericType) {

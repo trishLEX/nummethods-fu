@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import ru.fa.model.Function
 import ru.fa.model.Matrix
-import ru.fa.model.NumericType
 import ru.fa.model.Vector
 
 class NonLinearNewtonRaphsonTest {
@@ -13,17 +12,17 @@ class NonLinearNewtonRaphsonTest {
     fun test() {
         val res = NonLinearNewtonRaphson(
             Vector.Companion.createVector(
-                Function(NumericType.FUNCTION_VECTOR) { it[0] * it[0] + it[1] * it[1] - 1.0 },
-                Function(NumericType.FUNCTION_VECTOR) { it[0] * it[0] - it[1] * it[1] - 1.0 },
+                Function.createVectorFunction { it[0] * it[0] + it[1] * it[1] - 1.0 },
+                Function.createVectorFunction { it[0] * it[0] - it[1] * it[1] - 1.0 },
             ),
             Matrix.createMatrix(
                 Vector.Companion.createVector(
-                    Function(NumericType.FUNCTION_VECTOR) { it[0] * 2 },
-                    Function(NumericType.FUNCTION_VECTOR) { it[1] * 2 },
+                    Function.createVectorFunction { it[0] * 2 },
+                    Function.createVectorFunction { it[1] * 2 },
                 ),
                 Vector.Companion.createVector(
-                    Function(NumericType.FUNCTION_VECTOR) {   it[0] * 2 },
-                    Function(NumericType.FUNCTION_VECTOR) { - it[1] * 2 },
+                    Function.createVectorFunction {   it[0] * 2 },
+                    Function.createVectorFunction { - it[1] * 2 },
                 ),
             ),
             Vector.Companion.createVector(-10.0, -1.0)

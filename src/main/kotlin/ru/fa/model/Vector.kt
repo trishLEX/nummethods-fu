@@ -7,6 +7,10 @@ class Vector<T: Numeric<T>>(val v: Array<T>, numericType: NumericType<Vector<T>>
             return Vector(v.map { Value(it) }.toTypedArray(), NumericType.VECTOR_VALUE)
         }
 
+        fun createVector(v: List<Value>): Vector<Value> {
+            return Vector(v.toTypedArray(), NumericType.VECTOR_VALUE)
+        }
+
         fun createVector(vararg v: Function<Vector<Value>>): Vector<Function<Vector<Value>>> {
             return Vector(v.toList().toTypedArray(), NumericType.VECTOR_FUNCTION_VECTOR)
         }

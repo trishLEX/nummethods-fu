@@ -1,6 +1,6 @@
 package ru.fa.model
 
-class Matrix<T: Numeric<T>>(
+class Matrix<T: Numeric<T>> private constructor(
     val m: Array<Vector<T>>,
     numericType: NumericType<Matrix<T>>
 ): Numeric<Matrix<T>>(numericType) {
@@ -20,6 +20,13 @@ class Matrix<T: Numeric<T>>(
         fun createValueMatrix(vararg v: Vector<Value>): Matrix<Value> {
             return Matrix(
                 v.toList().toTypedArray(),
+                NumericType.MATRIX_VALUE
+            )
+        }
+
+        fun createValueMatrix(v: List<Vector<Value>>): Matrix<Value> {
+            return Matrix(
+                v.toTypedArray(),
                 NumericType.MATRIX_VALUE
             )
         }
