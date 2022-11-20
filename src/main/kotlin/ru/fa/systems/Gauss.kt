@@ -1,16 +1,18 @@
 package ru.fa.systems
 
+import ru.fa.model.Matrix
 import ru.fa.model.Method
 import ru.fa.model.MethodResult
 import ru.fa.model.NumericType
 import ru.fa.model.Value
+import ru.fa.model.Vector
 
 class Gauss(
-    private val matrix: ru.fa.model.Matrix<Value>,
-    private val vector: ru.fa.model.Vector<Value>
-) : Method<ru.fa.model.Vector<Value>> {
+    private val matrix: Matrix<Value>,
+    private val vector: Vector<Value>
+) : Method<Vector<Value>> {
 
-    override fun evaluate(): MethodResult<ru.fa.model.Vector<Value>> {
+    override fun evaluate(): MethodResult<Vector<Value>> {
         if (matrix.size() != vector.size()) {
             throw IllegalArgumentException("Different sizes of matrix and vector")
         }
@@ -29,7 +31,7 @@ class Gauss(
                 val mi = ak[i][k] / ak[k][k]
                 val bi = bk[i] - mi * bk[k]
 
-                val ai = ru.fa.model.Vector.zero(a.size(), NumericType.VECTOR_VALUE)
+                val ai = Vector.zero(a.size(), NumericType.VECTOR_VALUE)
                 for (j in k until matrix.size()) {
                     val aij = ak[i][j] - mi * ak[k][j]
                     ai[j] = aij
@@ -42,7 +44,7 @@ class Gauss(
         }
 
         // обратный ход
-        val x = ru.fa.model.Vector.zero(a.size(), NumericType.VECTOR_VALUE)
+        val x = Vector.zero(a.size(), NumericType.VECTOR_VALUE)
         x[a.size() - 1] = b[b.size() - 1] / a[b.size() - 1][b.size() - 1]
         for (n in b.size() - 2 downTo 0) {
             var xn = b[n]
@@ -54,7 +56,7 @@ class Gauss(
         return MethodResult(x, matrix.size())
     }
 
-    private fun getMainRow(a: ru.fa.model.Matrix<Value>, k: Int): Int {
+    private fun getMainRow(a: Matrix<Value>, k: Int): Int {
         var maxElement = a[k][k]
         var maxRow = k
         for (i in k + 1 until a.size()) {
